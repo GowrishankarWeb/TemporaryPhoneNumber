@@ -1,0 +1,57 @@
+<meta charset="UTF-8">
+<div class="container">
+    <div class="inner-container">
+        <h1 class="title">Free Temporary Phone Number Generator Tool</h1>
+        <h2 class="subtitle">Get Your Temporary Phone Number at an Instant</h2>
+        <h4 class="subtitle">Get a fake phone number to verify any website or application in a few minutes.</h4>
+        <form #numberForm="ngForm">
+            <div class="form-group">
+                <label for="country">Choose a Country Calling Code</label>
+                <select
+                #countrySelected="ngModel"
+                [(ngModel)]="countryName" 
+                [ngModelOptions]="{standalone: true}"
+                required 
+                placeholder="Select Country Code"
+                class="select custom-mat-select">
+                <option value="" disabled>Select Country</option>
+                @for (count of countriesList; track $index) {
+                    <option [value]="count.name"> {{count.name}} {{count.dialCode}}</option>
+                }
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="phone-numbers">How many phone numbers?</label>
+                <input 
+                type="number" 
+                #numberCount="ngModel"
+                [(ngModel)]="numberInForm.numberCount" 
+                [ngModelOptions]="{standalone: true}"
+                placeholder="Enter number of phone numbers">
+            </div>
+            <div class="form-group">
+                <button (click)="generateNumbers()">Generate</button>
+            </div>
+        </form>
+        <div id="numbersContainer">
+            @if(generatedNumbers.length > 0){
+            <ul>
+                @for (item of generatedNumbers; track $index) {
+                    <li>{{ item }}</li>
+                }
+            </ul>
+            }
+        </div>
+        @if (generatedNumbers.length>0) {
+        <div id="numbersContainer">
+            @for (item of generatedNumbers; track $index) {  
+                <div class="number-box">
+                    {{ item }} 
+                </div>  
+            }
+          </div>
+          <button (click)="copyToClipboard()">Copy All</button>
+          <textarea id="copyArea" style="opacity: 0; position: absolute;"></textarea>
+        }
+    </div>
+</div>
